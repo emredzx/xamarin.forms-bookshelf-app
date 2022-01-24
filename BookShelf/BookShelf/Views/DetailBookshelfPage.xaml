@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BookShelf.Views.DetailBookshelfPage"
+             xmlns:model="clr-namespace:BookShelf.Models"
+             x:DataType="model:BookshelfBook"
+             BackgroundColor="#ffe4b5"
+             Title="Detail Bookshelf Book">
+
+    <ContentPage.Content>
+        <StackLayout Margin="15" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Spacing="15">
+            <StackLayout>
+                <Image Source="ImageClosedBooks.png" Aspect="AspectFit" HeightRequest="75" WidthRequest="100"/>
+            </StackLayout>
+            <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                <Grid >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="8*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="10*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="{StaticResource IconName}" FontFamily="FAS" FontSize="Medium" Grid.Row="0" Grid.Column="0"/>
+                    <Label Style="{StaticResource LabelMedium}" Text="{Binding Name, StringFormat='Name: {0}'}" Grid.Row="0" Grid.Column="1"/>
+                    <Label Text="{StaticResource IconAuthor}" FontFamily="FAS" FontSize="Medium" Grid.Row="1" Grid.Column="0"/>
+                    <Label Style="{StaticResource LabelMedium}" Text="{Binding Author, StringFormat='Author: {0}'}" Grid.Row="1" Grid.Column="1"/>
+                    <Label Text="{StaticResource IconPage}" FontFamily="FAS" FontSize="Medium" Grid.Row="2" Grid.Column="0"/>
+                    <Label Style="{StaticResource LabelMedium}" Text="{Binding TotalPageNumber, StringFormat='Total Page Number: {0}'}" Grid.Row="2" Grid.Column="1"/>
+                    <Label Text="{StaticResource IconRating}" FontFamily="FAS" FontSize="Medium" Grid.Row="3" Grid.Column="0"/>
+                    <Label Style="{StaticResource LabelMedium}" Text="{Binding Rating, StringFormat='Rating: {0}'}" Grid.Row="3" Grid.Column="1"/>
+                    <Label Text="{StaticResource IconDescription}" FontFamily="FAS" FontSize="Medium" Grid.Row="4" Grid.Column="0"/>
+                    <Label Style="{StaticResource LabelMedium}" Text="{Binding Description, StringFormat='Description: {0}'}" Grid.Row="4" Grid.Column="1"/>
+                </Grid>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

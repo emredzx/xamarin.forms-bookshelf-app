@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:viewmodels="clr-namespace:BookShelf.ViewModels" 
+             xmlns:model="clr-namespace:BookShelf.Models"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             x:Class="BookShelf.Views.DeskPage"
+             x:DataType="viewmodels:DeskViewModel"
+             x:Name="DeskbookPage"
+             Title="{Binding Title}"
+             BackgroundColor="YellowGreen">
+
+    <ContentPage.BindingContext>
+        <viewmodels:DeskViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <xct:ItemSelectedEventArgsConverter x:Key="ItemSelectedEventArgsConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Command="{Binding AddCommand}" IconImageSource="IconPlus"/>
+    </ContentPage.ToolbarItems>
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView ItemsSource="{Binding deskBooks}"
+                      IsRefreshing="{Binding IsBusy, Mode=OneWay}" 
+                      RefreshCommand="{Binding RefreshCommand}" 
+                      SelectedItem="{Binding SelectedDeskBook, Mode=TwoWay}" 
+                      Style="{StaticResource BookListView}">
+                <ListView.Behaviors>
+                    <xct:EventToCommandBehavior
+                        EventName="ItemSelected"
+                        Command="{Binding SelectedCommand}"
+                        EventArgsConverter="{StaticResource ItemSelectedEventArgsConverter}" />
+                </ListView.Behaviors>
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="model:DeskBook">
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Add to Bookshelf" Command="{Binding Source={x:Reference DeskbookPage}, Path=BindingContext.BookshelfCommand}" 
+                                          CommandParameter="{Binding .}" IconImageSource="IconAddBookshelf.png"/>
+                                <MenuItem Text="Update" Command="{Binding Source={x:Reference DeskbookPage}, Path=BindingContext.UpdateCommand}" 
+                                          CommandParameter="{Binding .}" IconImageSource="IconEdit.png"/>
+                                <MenuItem Text="Delete" IsDestructive="True" Command="{Binding Source={x:Reference DeskbookPage}, Path=BindingContext.RemoveCommand}" 
+                                          CommandParameter="{Binding .}" IconImageSource="IconTrashCan.png"/>
+                            </ViewCell.ContextActions>
+                            <Grid Padding="1">
+                                <Frame Style="{StaticResource BookCard}">
+                                    <StackLayout>
+                                        <StackLayout Orientation="Horizontal" Spacing="15">
+                                            <Label HorizontalOptions="Start" 
+                                               Text="{StaticResource IconOpenBook}"
+                                               FontSize="36"
+                                               FontFamily="FAS"/>
+                                            <StackLayout>
+                                                <Label Style="{StaticResource LabelLarge}" Text="{Binding Name}" />
+                                                <Label Style="{StaticResource LabelSmall}" TextColor="Red" FontAttributes="Italic" Text="{Binding Author}" />
+                                            </StackLayout>
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal" HorizontalOptions="End">
+                                            <Label Style="{StaticResource LabelSmall}" Text="{Binding PageNumber}" />
+                                            <Label Style="{StaticResource LabelSmall}" Text="/" />
+                                            <Label Style="{StaticResource LabelSmall}" Text="{Binding TotalPageNumber}" />
+                                        </StackLayout>
+                                    </StackLayout>
+                                </Frame>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

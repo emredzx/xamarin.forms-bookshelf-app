@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:viewmodel="clr-namespace:BookShelf.ViewModels"
+             x:Class="BookShelf.Views.EditDetailDeskPage"
+             x:DataType="viewmodel:EditDetailDeskViewModel"
+             Title="{Binding Title}"
+             BackgroundColor="#F3E2FF">
+
+    <ContentPage.BindingContext>
+        <viewmodel:EditDetailDeskViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <StackLayout Padding="20">
+            <Label Style="{StaticResource LabelMedium}" Text="Name:"/>
+            <Entry Text="{Binding Name}" FontFamily="AC"/>
+            <Label Style="{StaticResource LabelMedium}" Text="Author:" />
+            <Entry Text="{Binding Author}" FontFamily="AC"/>
+            <Label Style="{StaticResource LabelMedium}" Text="Your Page Number:"/>
+            <Entry Text="{Binding PageNumber}" FontFamily="AC" Keyboard="Numeric"/>
+            <Label Style="{StaticResource LabelMedium}" Text="Total Page Number:" />
+            <Entry Text="{Binding TotalPageNumber}" FontFamily="AC" Keyboard="Numeric"/>
+
+            <ActivityIndicator
+                HorizontalOptions="Center"
+                IsRunning="{Binding IsBusy}"
+                IsVisible="{Binding IsBusy}"
+                VerticalOptions="Center" />
+
+            <Button Style="{StaticResource ButtonOutline}"
+                Padding="20,0"
+                Command="{Binding UpdateCommand}"
+                HorizontalOptions="Center"
+                IsEnabled="{Binding IsNotBusy}"
+                Text="Save"
+                VerticalOptions="EndAndExpand"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

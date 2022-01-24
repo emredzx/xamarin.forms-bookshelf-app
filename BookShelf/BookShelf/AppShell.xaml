@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms" 
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:BookShelf.Views"
+       Title="BookShelf"
+       x:Class="BookShelf.AppShell">
+
+    
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Style x:Key="BaseStyle" TargetType="Element">
+                <Setter Property="Shell.BackgroundColor" Value="LightPink" />
+                <Setter Property="Shell.ForegroundColor" Value="Black" />
+                <Setter Property="Shell.TitleColor" Value="Black"/>
+                <Setter Property="Shell.DisabledColor" Value="White" />
+                <Setter Property="Shell.UnselectedColor" Value="White" />
+                <Setter Property="Shell.TabBarBackgroundColor" Value="Aquamarine" />
+                <Setter Property="Shell.TabBarForegroundColor" Value="Black"/>
+                <Setter Property="Shell.TabBarUnselectedColor" Value="Black"/>
+                <Setter Property="Shell.TabBarTitleColor" Value="Black"/>
+            </Style>
+            <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
+            <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
+        </ResourceDictionary>
+    </Shell.Resources>
+
+    <TabBar>
+        <ShellContent Title="Desk" Icon="IconOpenBook.png" Route="DeskPage" ContentTemplate="{DataTemplate local:DeskPage}" />
+        <ShellContent Title="Bookshelf" Icon="IconBook.png" ContentTemplate="{DataTemplate local:BookshelfPage}" />
+        <ShellContent Title="Records" Icon="IconRecord.png" ContentTemplate="{DataTemplate local:RecordsPage}" />
+    </TabBar>
+
+   
+</Shell>

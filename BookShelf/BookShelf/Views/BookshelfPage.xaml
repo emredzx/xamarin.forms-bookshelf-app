@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:viewmodels="clr-namespace:BookShelf.ViewModels"
+             xmlns:model="clr-namespace:BookShelf.Models"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             x:Class="BookShelf.Views.BookshelfPage"
+             x:DataType="viewmodels:BookshelfViewModel"
+             x:Name="BookshelfbookPage"
+             Title="{Binding Title}"
+             Background="MediumPurple">
+
+    <ContentPage.BindingContext>
+        <viewmodels:BookshelfViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <xct:ItemSelectedEventArgsConverter x:Key="ItemSelectedEventArgsConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Command="{Binding AddCommand}" IconImageSource="IconPlus"/>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView ItemsSource="{Binding bookshelfBooks}"
+                      IsRefreshing="{Binding IsBusy, Mode=OneWay}" 
+                      RefreshCommand="{Binding RefreshCommand}"
+                      SelectedItem="{Binding SelectedBookshelfBook, Mode=TwoWay}"
+                      Style="{StaticResource BookListView}">
+                <ListView.Behaviors>
+                    <xct:EventToCommandBehavior
+                        EventName="ItemSelected"
+                        Command="{Binding SelectedCommand}"
+                        EventArgsConverter="{StaticResource ItemSelectedEventArgsConverter}" />
+                </ListView.Behaviors>
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="model:BookshelfBook">
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Update" Command="{Binding Source={x:Reference BookshelfbookPage}, Path=BindingContext.UpdateCommand}" 
+                                          CommandParameter="{Binding .}" IconImageSource="IconEdit.png"/>
+                                <MenuItem Text="Delete" IsDestructive="True" Command="{Binding Source={x:Reference BookshelfbookPage}, Path=BindingContext.RemoveCommand}" 
+                                          CommandParameter="{Binding .}" IconImageSource="IconTrashCan.png"/>
+                            </ViewCell.ContextActions>
+                            <Grid Padding="1">
+                                <Frame Style="{StaticResource BookCard}">
+                                    <StackLayout>
+                                        <StackLayout Orientation="Horizontal" Spacing="15">
+                                            <Label HorizontalOptions="Start" 
+                                               Text="{StaticResource IconBook}"
+                                               FontSize="36"
+                                               FontFamily="FAS"/>
+                                            <StackLayout>
+                                                <Label Style="{StaticResource LabelLarge}" Text="{Binding Name}" />
+                                                <Label Style="{StaticResource LabelSmall}" TextColor="Red" Text="{Binding Author}" />
+                                            </StackLayout>
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal" HorizontalOptions="End">
+                                            <Label Style="{StaticResource LabelSmall}" Text="{Binding Rating}" />
+                                            <Label Style="{StaticResource LabelSmall}" Text="/" />
+                                            <Label Style="{StaticResource LabelSmall}" Text="5" />
+                                        </StackLayout>
+                                    </StackLayout>
+                                </Frame>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

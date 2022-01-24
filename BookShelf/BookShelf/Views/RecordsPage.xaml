@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:viewmodels="clr-namespace:BookShelf.ViewModels"
+             x:Class="BookShelf.Views.RecordsPage"
+             Title="Records"
+             BackgroundColor="#ffe4b5">
+
+
+    <ContentPage.Content>
+        <StackLayout Margin="20" VerticalOptions="CenterAndExpand" Spacing="25">
+            <StackLayout>
+                <Image Source="ReadingBook.png" Aspect="AspectFit" HeightRequest="150" WidthRequest="150"/>
+            </StackLayout>
+            <Grid BackgroundColor="#ffe4b5">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.00000001*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="6*"/>
+                    <ColumnDefinition Width="0.00000001*"/>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="0.00000001*"/>
+                </Grid.ColumnDefinitions>
+                <Label Text="{StaticResource IconPage}" FontFamily="FAS" FontSize="24" Grid.Row="0" Grid.Column="1"/>
+                <Label Text="Total page(s) read: " Style="{StaticResource BaseLabel}" FontSize="20" Grid.Row="0" Grid.Column="2"/>
+                <Label x:Name="totalPages" Style="{StaticResource BaseLabel}" Text="" FontSize="25" Grid.Row="0" Grid.Column="4" VerticalTextAlignment="End"/>
+                <Label Text="{StaticResource IconBook}" FontFamily="FAS" FontSize="30" Grid.Row="1" Grid.Column="1"/>
+                <Label Text="Total book(s) read: " Style="{StaticResource BaseLabel}" FontSize="20" Grid.Row="1" Grid.Column="2"/>
+                <Label x:Name="bookshelfBook" Style="{StaticResource BaseLabel}" Text="" FontSize="25" Grid.Row="1" Grid.Column="4" VerticalTextAlignment="End"/>
+                <Label Text="{StaticResource IconBook}" FontFamily="FAS" FontSize="30" Grid.Row="2" Grid.Column="1"/>
+                <Label Text="Total book(s) waiting to read: " Style="{StaticResource BaseLabel}" FontSize="20" Grid.Row="2" Grid.Column="2"/>
+                <Label x:Name="deskbookBook" Style="{StaticResource BaseLabel}" Text="" FontSize="25" Grid.Row="2" Grid.Column="4" VerticalTextAlignment="End"/>
+            </Grid>
+            <StackLayout>
+                <Image Source="WellDone.png" Aspect="AspectFit" HeightRequest="150" WidthRequest="150"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
